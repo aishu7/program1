@@ -1,0 +1,10 @@
+use strict;
+use warnings;
+use diagnostics;
+my @arr;
+$arr[0]="car";
+$arr[1]="bike";
+$arr[5]="bus";
+#print "@arr";
+my $n=@arr;
+print $n;
