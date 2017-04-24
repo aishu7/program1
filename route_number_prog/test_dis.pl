@@ -16,11 +16,11 @@ chomp( my $in1 = <STDIN> );
 chomp( my $in2 = <STDIN> );
 
 if ( exists $route{$in1} ) {
-    ;
+    
     ( $index1, $dis1 ) = ( $route{$in1}[0], $route{$in1}[1] );
 }
 
-if ( exists $route{$in1} ) {
+if ( exists $route{$in2} ) {
 
     ( $index2, $dis2 ) = ( $route{$in2}[0], $route{$in2}[1] );
 }
