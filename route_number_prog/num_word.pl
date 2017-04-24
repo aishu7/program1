@@ -1,30 +1,39 @@
+
+=pod
+Write a program which accepts an integer as input and prints the string version of it.
+Assume the input will be less than or equal to 25.
+
+Example:
+Input: 19
+Output: Nineteen
+
+You have time till 12:45 PM on Monday..
+=cut
+
 use strict;
 use warnings;
 use diagnostics;
-use Data::Dumper qw(Dumper);
-use feature "say";
-my $file = 'num_wor.txt';
+my $file = '/home/aishu/program1/route_number_prog/num_wor.txt';
 open( my $line, '<', $file ) or die "cant able to open";
-my (@num_str, %num_str_hash,@int1,@str);
+my ( @all_datas, %num_integer_word, @num_int, @num_word );
 my $n = 0;
-
 while ( my $row = <$line> ) {
     chomp $row;
-    push @num_str, $row;
+    push @all_datas, $row;
     $n = $n + 1;
 }
-
-
+close $file;
 foreach my $i ( 0 .. $n - 1 ) {
-    ( $int1[$i], $str[$i] ) = split( /:/, $num_str[$i] );
-}
-for my $j ( 0 .. $n - 1 ) {
-    $num_str_hash{"$int1[$j]"} = ( $str[$j] );
+    ( $num_int[$i], $num_word[$i] ) = split( /:/, $all_datas[$i] );
+
+    $num_integer_word{"$num_int[$i]"} = ( $num_word[$i] );
 }
 
-print "Enter the number to check ";
+#say Dumper \%num_str_hash;
+
+print "Enter the number to check which should be less than 25 ";
 chomp( my $in1 = <STDIN> );
-if ( exists $num_str_hash{$in1} ) {
-    print "$num_str_hash{$in1}\n";
+if ( exists $num_integer_word{$in1} ) {
+    print "$num_integer_word{$in1}\n";
 }
 
