@@ -25,7 +25,7 @@ NOTE:
 use strict;
 use warnings;
 use diagnostics;
-my $filename = "/home/aishu/program1/route_number_prog/DistrictRoutes.txt";
+my $filename = "DistrictRoutes.txt";
 open my $line, '<', $filename or die "cant open";
 my ( @all_datas, $place, @place1, $toa, @toa1, $dt, @dt1 );
 

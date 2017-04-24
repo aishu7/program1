@@ -13,7 +13,7 @@ You have time till 12:45 PM on Monday..
 use strict;
 use warnings;
 use diagnostics;
-my $file = '/home/aishu/program1/route_number_prog/num_wor.txt';
+my $file = 'num_wor.txt';
 open( my $line, '<', $file ) or die "cant able to open";
 my ( @all_datas, %num_integer_word, @num_int, @num_word );
 my $n = 0;
