@@ -1,3 +1,4 @@
+
 =pod
 File contents ( Each value is separated by ';' ):
 Line1: District
@@ -24,7 +25,7 @@ NOTE:
 use strict;
 use warnings;
 use diagnostics;
-my $filename= "DistrictRoutes.txt";
+my $filename = "DistrictRoutes.txt";
 open my $line, '<', $filename or die "cant open";
 my ( @all_datas, $place, @place1, $toa, @toa1, $dt, @dt1 );
 while ( my $line = <$line> )    #reading the file line by line
@@ -68,54 +69,56 @@ my %mins_hash;
 my %index1;
 my %dis_hash;
 for my $i ( 0 .. $n - 1 ) {
-$index1{index1}=$i;
-$hrs_hash{hrs}=$hrs[$i];
-$mins_hash{mins}=$mins[$i];
-$dis_hash{dist}=$dt1[$i];
-$route{$place1[$i]}={%index1,%hrs_hash,%mins_hash,%dis_hash};
+    $index1{index1}  = $i;
+    $hrs_hash{hrs}   = $hrs[$i];
+    $mins_hash{mins} = $mins[$i];
+    $dis_hash{dist}  = $dt1[$i];
+    $route{ $place1[$i] } = { %index1, %hrs_hash, %mins_hash, %dis_hash };
 
 }
 
 print "the cities are\n";
-foreach my $k(@place1)
-{
-print "$k\n";
+foreach my $k (@place1) {
+    print "$k\n";
 }
 print "Enter the city to check ";
-chomp(my $in=<STDIN>);
-if(exists $route{$in})
-{
-print "The Time of Arrival of $in is $route{$in}{hrs}hrs $route{$in}{mins}mins \n";
-print "The Distance travelled of $in is $route{$in}{dist} km\n";
-print "the Duration of journey of $in is $route{$in}{hrs} hrs $route{$in}{mins}mins \n";
+chomp( my $in = <STDIN> );
+if ( exists $route{$in} ) {
+    print
+"The Time of Arrival of $in is $route{$in}{hrs}hrs $route{$in}{mins}mins \n";
+    print "The Distance travelled of $in is $route{$in}{dist} km\n";
+    print
+"the Duration of journey of $in is $route{$in}{hrs} hrs $route{$in}{mins}mins \n";
 }
-my ($dis1,$dis2,$hrs1,$mins1,$hrs2,$mins2,$ind1,$ind2);
+my ( $dis1, $dis2, $hrs1, $mins1, $hrs2, $mins2, $ind1, $ind2 );
 print "Enter the two district to check the details";
-chomp(my $in1=<STDIN>);
-chomp(my $in2=<STDIN>);
-if(exists $route{$in1})
-{
-($dis1,$hrs1,$mins1,$ind1)=("$route{$in1}{dist}","$route{$in1}{hrs}","$route{$in1}{mins}","$route{$in1}{index1}");
+chomp( my $in1 = <STDIN> );
+chomp( my $in2 = <STDIN> );
+if ( exists $route{$in1} ) {
+    ( $dis1, $hrs1, $mins1, $ind1 ) = (
+        "$route{$in1}{dist}", "$route{$in1}{hrs}",
+        "$route{$in1}{mins}", "$route{$in1}{index1}"
+    );
 }
-if (exists $route{$in2})
-{
-($dis2,$hrs2,$mins2,$ind2)=("$route{$in2}{dist}","$route{$in2}{hrs}","$route{$in2}{mins}","$route{$in2}{index1}");
+if ( exists $route{$in2} ) {
+    ( $dis2, $hrs2, $mins2, $ind2 ) = (
+        "$route{$in2}{dist}", "$route{$in2}{hrs}",
+        "$route{$in2}{mins}", "$route{$in2}{index1}"
+    );
 }
-my ($hrs_final,$mins_final);
-if($ind2 > $ind1)
-{
-$hrs_final=$hrs2 - $hrs1;
-$mins_final=$mins2 - $mins1;
-if($mins_final < 0)
-{
-$mins_final=($mins2 + 60) - $mins1;
-$hrs_final=$hrs_final - 1;
-}
+my ( $hrs_final, $mins_final );
+if ( $ind2 > $ind1 ) {
+    $hrs_final  = $hrs2 - $hrs1;
+    $mins_final = $mins2 - $mins1;
+    if ( $mins_final < 0 ) {
+        $mins_final = ( $mins2 + 60 ) - $mins1;
+        $hrs_final  = $hrs_final - 1;
+    }
 }
 else
 
 {
-$hrs_final  = $hrs1 - $hrs2;
+    $hrs_final  = $hrs1 - $hrs2;
     $mins_final = $mins1 - $mins2;
     if ( $mins_final < 0 ) {
         $mins_final = ( $mins1 + 60 ) - $mins2;
@@ -123,13 +126,13 @@ $hrs_final  = $hrs1 - $hrs2;
     }
 }
 
-print "the duration of journey between two cities is $hrs_final hrs $mins_final min \n";
+print
+"the duration of journey between two cities is $hrs_final hrs $mins_final min \n";
 
-my @final_dis = @dt1[$ind1 .. $ind2];
+my @final_dis = @dt1[ $ind1 .. $ind2 ];
 my $distance_final;
-foreach my $i(@final_dis)
-{
-$distance_final += $i;
+foreach my $i (@final_dis) {
+    $distance_final += $i;
 
 }
 print "The distance between two cities is $distance_final\n";
