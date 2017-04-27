@@ -1,40 +1,42 @@
 
 =pod
-
 Your next part of the exercise is to use 'Text::CSV_XS' module for file data operation.
 Currently you are using "open, split, form array, etc"
 Instead change file reading part of the code to use the 'Text::CSV_XS' module.
-
 =cut
 
 use strict;
 use warnings;
 use diagnostics;
 use Text::CSV_XS;
-my (
-    @all_datas, @place1, @toa1,     @dt1, %route,
-    %mins_hash, %index1, %dis_hash, %hrs_hash
-);
+
 
 sub read_file {
+    my @all_datas;
     my $file = 'DistrictRoutes.txt';
     open my $fh, '<', $file or die "could not able to open";
 
     my $csv =
-      Text::CSV_XS->new( { binary => 1, eol => "\n", sep_char => ";" } );
+      Text::CSV_XS->new( {  sep_char => ";" } );
 
     while ( my $row = $csv->getline($fh) ) {
-        $csv->sep_char(";");
+       
         push @all_datas, $row;
     }
 
     close $fh;
+return @all_datas;
 }
-read_file();
+
+my @datas=read_file();
 
 sub ds_creation {
 
-    foreach my $i ( @{ $all_datas[0] } ) {
+my @all_datas=@_;
+  my (@place1,@toa1,@dt1,
+    %mins_hash, %index1, %dis_hash, %hrs_hash,%route
+);
+  foreach my $i ( @{ $all_datas[0] } ) {
         push @place1, $i;
     }
     foreach my $i ( @{ $all_datas[2] } ) {
@@ -59,50 +61,58 @@ sub ds_creation {
         $route{ $place1[$i] } = { %index1, %hrs_hash, %mins_hash, %dis_hash };
 
     }
+return (\@dt1,\@place1,\%route);
 }
-ds_creation();
+
+my ($dt2,$place2,$route1)=ds_creation(@datas);
 
 sub display {
     print "the cities are\n";
-
-    foreach my $k (@_) {
+my $ref=shift;
+my @cities=@{$ref};
+    foreach my $k (@cities) {
         print "$k\n";
     }
 
 }
 
-&display(@place1);
+display($place2);
 
 sub user_inputs {
     my $inp = shift;
-
-    if ( exists $route{$inp} ) {
+    my $ref_route=shift;
+    my %inp_route=%$ref_route;
+    if ( exists $inp_route{$inp} ) {
         print
-"The Time of Arrival of $inp is $route{$inp}{hrs}hrs $route{$inp}{mins}mins \n";
-        print "The Distance travelled of $inp is $route{$inp}{dist} km\n";
+"The Time of Arrival of $inp is $inp_route{$inp}{hrs}hrs $inp_route{$inp}{mins}mins \n";
+        print "The Distance travelled of $inp is $inp_route{$inp}{dist} km\n";
         print
-"the Duration of journey of $inp sis $route{$inp}{hrs} hrs $route{$inp}{mins}mins \n";
+"the Duration of journey of $inp sis $inp_route{$inp}{hrs} hrs $inp_route{$inp}{mins}mins \n";
     }
 }
 
 print "Enter the city to check ";
 chomp( my $in = <STDIN> );
-user_inputs($in);
+user_inputs($in,$route1);
 
 sub user_inputs2 {
     my ( $dis1, $dis2, $hrs1, $mins1, $hrs2, $mins2, $ind1, $ind2 );
     my $inp1 = shift;
     my $inp2 = shift;
-    if ( exists $route{$inp1} ) {
+    my $ref1 = shift;
+    my @dt4 =@$ref1;
+    my $refe_route=shift;
+   my %inp2_route=%$refe_route;
+   if ( exists $inp2_route{$inp1} ) {
         ( $dis1, $hrs1, $mins1, $ind1 ) = (
-            "$route{$inp1}{dist}", "$route{$inp1}{hrs}",
-            "$route{$inp1}{mins}", "$route{$inp1}{index1}"
+            "$inp2_route{$inp1}{dist}", "$inp2_route{$inp1}{hrs}",
+            "$inp2_route{$inp1}{mins}", "$inp2_route{$inp1}{index1}"
         );
     }
-    if ( exists $route{$inp2} ) {
+    if ( exists $inp2_route{$inp2} ) {
         ( $dis2, $hrs2, $mins2, $ind2 ) = (
-            "$route{$inp2}{dist}", "$route{$inp2}{hrs}",
-            "$route{$inp2}{mins}", "$route{$inp2}{index1}"
+            "$inp2_route{$inp2}{dist}", "$inp2_route{$inp2}{hrs}",
+            "$inp2_route{$inp2}{mins}", "$inp2_route{$inp2}{index1}"
         );
     }
     my ( $hrs_final, $mins_final );
@@ -128,7 +138,7 @@ sub user_inputs2 {
     print
 "the duration of journey between two cities is $hrs_final hrs $mins_final min \n";
 
-    my @final_dis = @dt1[ $ind1 .. $ind2 ];
+    my @final_dis = @dt4[ $ind1 .. $ind2 ];
     my $distance_final;
     foreach my $i (@final_dis) {
         $distance_final += $i;
@@ -141,5 +151,5 @@ sub user_inputs2 {
 print "Enter the two district to check the details ";
 chomp( my $in1 = <STDIN> );
 chomp( my $in2 = <STDIN> );
-user_inputs2( $in1, $in2 );
+user_inputs2( $in1, $in2,$dt2,$route1 );
 
