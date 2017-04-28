@@ -81,50 +81,74 @@ sub user_inputs {
     my $inp       = shift;
     my $ref_route = shift;
     my %inp_route = %$ref_route;
+    my ( $distance_inp1, $hrs_inp1, $mins_inp1 );
     if ( exists $inp_route{$inp} ) {
 
-        my $tb = Text::Table->new(
+        $distance_inp1 = $inp_route{$inp}{dist};
+        $hrs_inp1      = $inp_route{$inp}{hrs};
+        $mins_inp1     = $inp_route{$inp}{mins};
+
+        &display_q1( $inp, $distance_inp1, $hrs_inp1, $mins_inp1 );
+
+    }
+}
+
+sub display_q1 {
+    my ( $input1, $dis_dis, $hrs_dis, $mins_dis ) = @_;
+    my $tb = Text::Table->new(
+        " Districts ",
+        " Distance\nkm ",
+        " TimeOfArrival\n24 format ",
+        " Duration "
+    );
+
+    $tb->load(
+        [
+            " Bangalore : $input1 ",
+            " $dis_dis ",
+            " $hrs_dis:$mins_dis ",
+            " $hrs_dis:$mins_dis "
+        ]
+    );
+    my $rule = $tb->rule(qw/- +/);
+    print $rule, $tb->title, $rule;
+    my @arr = $tb->body;
+    for (@arr) {
+        print $_ . $rule;
+    }
+    &write_q1( $input1, $dis_dis, $hrs_dis, $mins_dis );
+}
+
+sub write_q1 {
+    my ( $input_1, $dis_wri, $hrs_wri, $mins_wri ) = @_;
+    my $file = 'District_route.csv';
+
+    open my $fh, '>>', $file or die "cannot open";
+    my $csv = Text::CSV_XS->new( { binary => 1, eol => "\n" } );
+    my @input = (
+        [
             " Districts ",
             " Distance\nkm ",
             " TimeOfArrival\n24 format ",
             " Duration "
-        );
-        $tb->load(
-            [
-                " Bangalore : $inp ",
-                " $inp_route{$inp}{dist} ",
-                " $inp_route{$inp}{hrs}:$inp_route{$inp}{mins} ",
-                " $inp_route{$inp}{hrs}:$inp_route{$inp}{mins} "
-            ]
-        );
-        print $tb;
-        my $file = 'District_route.csv';
+        ],
+        [
+            " Bangalore : $input_1 ",
+            " $dis_wri",
+            " $hrs_wri : $mins_wri ",
+            " $hrs_wri : $mins_wri "
+        ],
+        ["\n"]
+    );
+    $csv->print( $fh, $_ ) for @input;
+    close $fh or die "$fh not opened";
 
-        open my $fh, '>>', $file or die "cannot open";
-        my $csv = Text::CSV_XS->new( { binary => 1, eol => "\n" } );
-        my @input = (
-            [
-                " Districts ",
-                " Distance\nkm ",
-                " TimeOfArrival\n24 format ",
-                " Duration "
-            ],
-            [
-                " Bangalore : $inp ",
-                " $inp_route{$inp}{dist} ",
-                " $inp_route{$inp}{hrs}:$inp_route{$inp}{mins} ",
-                " $inp_route{$inp}{hrs}:$inp_route{$inp}{mins} "
-            ],
-            ["\n"]
-        );
-        $csv->print( $fh, $_ ) for @input;
-        close $fh or die "$fh not opened";
-
-    }
 }
+
 print "Enter the city to check ";
 chomp( my $in = <STDIN> );
-user_inputs( $in, $route1 );
+
+my ( $dis1, $hrs1, $mins1 ) = user_inputs( $in, $route1 );
 
 sub user_inputs2 {
     my ( $dis1, $dis2, $hrs1, $mins1, $hrs2, $mins2, $ind1, $ind2 );
