@@ -15,41 +15,32 @@ use strict;
 use warnings;
 use diagnostics;
 
-my $file = 'test1';
+my $file = 'hard';
 
 #opened the file and writing the output of the lshw linux command
-open my $fh, '+<', $file or die "cant open";
-`lshw > test1`;
+`lshw > $file`;
+open my $fh, '<', $file or die "can't open $file  for reading\n";
 my ( %descrip, $line, $key1 );
 
 #reading the file line by line
 while ( $line = <$fh> ) {
     chomp($line);
 
-    #skipping the first nine lines because that doesn't have key value pair
-    next if $. == 1 .. 9;
-
     #matching the pattern *-
     if ( $line =~ /\*-/ ) {
         $line =~ s /\s+\*-//;
 
-        #assinging the key
-        $descrip{$line} = "";
         $key1 = $line;
+        print "$key1\n";
     }
     else {
         #assigning the value
-        $descrip{$key1} .= "\n$line";
+        if ( defined $key1 ) {
+            $descrip{$key1} .= "\n$line";
+        }
     }
 }
-
-while ( my ( $k, $v ) = each %descrip ) {
-
-    #printing all the hardware keyword
-    print "$k\n";
-}
-
-print "Enter the hardware to know about details";
+print "Enter the hardware to know about details ";
 chomp( my $in = <STDIN> );
 if ( exists $descrip{$in} ) {
 
