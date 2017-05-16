@@ -59,5 +59,16 @@ sub display_ind {
     }
 }
 
+sub delete_records {
+    my ( $self, $inp ) = @_;
+    if ( exists $all_data{"$inp"} ) {
+        delete $all_data{$inp};
+    }
+}
+
+sub update_record {
+    my ( $self, $inp, $first, $last, $dob, $course ) = @_;
+
+}
 1;
 
