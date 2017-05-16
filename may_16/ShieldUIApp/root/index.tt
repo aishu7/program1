@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8" />
+    <title>Library Management</title>
+    <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+</head>
+<body>
+<h3> Catalyst Model creation example</h3>
+<div id="grid" style="max-width:800px; margin:auto;margin-top:40px;"></div>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#grid").shieldGrid({
+            dataSource: {
+                data: gridData                 
+            },
+           
+            sorting: {
+                multiple: true
+            },
+            paging: {
+                pageSize: 12,
+                pageLinksCount: 10
+            },
+            selection: {
+                type: "row",
+                multiple: true,
+                toggle: false
+            },
+            columns: [                
+                { path: "id", type: Number },
+                { path: "name", type:String },
+                { path: "author", type: String },
+                { path: "rating", type: Number }
+            ]
+        });
+    });            
+</script>
+</body>
+</html>
