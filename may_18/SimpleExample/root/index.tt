@@ -3,7 +3,7 @@
  simple example program 
 </head>
 <body>
-<form name="example" method="POST" action="manage/example" >
+<form name="example" method="POST" action="example" >
 <input type="text" name="first_name"/>
 <input type="text" name="last_name"/>
 <input type="submit" value="submit"/>

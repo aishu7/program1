@@ -1,3 +1,4 @@
+#package SimpleExample::Controller::Manage;
 package SimpleExample::Controller::Manage;
 use Moose;
 use namespace::autoclean;
@@ -20,7 +21,7 @@ Catalyst Controller.
 
 =cut
 
-sub index : Path('start') {
+sub index : Local  {
     my ( $self, $c ) = @_;
 
     #$c->response->body('Matched SimpleExample::Controller::manage in manage.');
@@ -28,7 +29,7 @@ sub index : Path('start') {
     $c->stash( template => 'index.tt' );
 }
 
-sub example : Path {
+sub example : Path{
     my ( $self, $c ) = @_;
 
     my $first = $c->req->param('first_name');

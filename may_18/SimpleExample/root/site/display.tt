@@ -1,10 +1,4 @@
-<html>
-<head>
 Details
-</head>
-<body>
 <p>The First Name is [% first %] </p></b>
 <p>The Last Name is [% last %] </p>
 
-</body>
-</html>

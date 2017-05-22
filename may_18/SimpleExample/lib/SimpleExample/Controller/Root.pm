@@ -28,7 +28,7 @@ The root page (/)
 
 =cut
 
-sub index : Global {
+sub index  {
     my ( $self, $c ) = @_;
 
     $c->log->debug("I am from Root index");
@@ -44,14 +44,14 @@ Standard 404 error page
 
 =cut
 
-sub default : Path {
-    my ( $self, $c ) = @_;
+#sub default : Path {
+ #   my ( $self, $c ) = @_;
 
-    $c->log->debug("I am from Root default");
+  #  $c->log->debug("I am from Root default");
 
-    $c->response->body('Page not found');
-    $c->response->status(404);
-}
+   # $c->response->body('Page not found');
+   # $c->response->status(404);
+#}
 
 =head2 end
 
