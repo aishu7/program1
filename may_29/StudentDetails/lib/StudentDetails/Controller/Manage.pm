@@ -1,7 +1,7 @@
 package StudentDetails::Controller::Manage;
 use Moose;
 use namespace::autoclean;
-use Data::Dumper;
+
 BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
@@ -20,12 +20,24 @@ Catalyst Controller.
 
 =cut
 
+=item index
+Params : NONE
+Returns: NONE
+Desc   : index helps store the index page and pass it between view and controller during a request. 
+=cut
+
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->stash( template     => 'index.tt' );
     $c->stash( button_click => 'nothing' );
 }
+
+=item manage_data
+Params : NONE
+Returns : NONE
+Desc : manage_data stores the add_details and display_form page and pass it between view and controller corresponding to the button action 
+=cut
 
 sub manage_data : Local {
     my ( $self, $c ) = @_;
@@ -36,6 +48,12 @@ sub manage_data : Local {
         $c->stash( template => 'display/display_form.tt' );
     }
 }
+
+=item add_data
+Params : NONE
+Returns : NONE
+Desc : add_data stores  form details which is entered by user and store into Student database. 
+=cut
 
 sub add_data : Local {
     my ( $self, $c ) = @_;
@@ -74,6 +92,12 @@ sub add_data : Local {
     }
 }
 
+=item display_data
+Params : NULL
+Returns: NULL	
+Desc : display_data is to get values from user and search into student database and result value of search is passed into search_result page 
+=cut
+
 sub display_data : Local {
     my ( $self, $c ) = @_;
     my $first          = $c->req->param('first_name');
@@ -86,17 +110,20 @@ sub display_data : Local {
     my @search_result;
     while ( my $i = $student_result->next ) {
         push @search_result,
-          (
-            $i->first_name, $i->last_name, $i->gender, $i->date_of_birth,
-            $i->contact_number, $i->address, $i->course
-          );
+          {
+            first_name  => $i->first_name,
+            last_name   => $i->last_name,
+            gender      => $i->gender,
+            dob         => $i->date_of_birth,
+            contact_num => $i->contact_number,
+            address     => $i->address,
+            course      => $i->course
+          };
     }
 
-    print Dumper \@search_result;
-    $c->log->debug("aaaaaaaaaray id @search_result");
     $c->stash(
         template => 'display/search_result.tt',
-        result   => "@search_result"
+        result   => \@search_result
     );
 }
 

@@ -1,4 +1,4 @@
-package StudentDetails::View::INFO;
+package StudentDetails::View::Info;
 use Moose;
 use namespace::autoclean;
 
@@ -11,7 +11,7 @@ __PACKAGE__->config(
 
 =head1 NAME
 
-StudentDetails::View::INFO - TT View for StudentDetails
+StudentDetails::View::Info - TT View for StudentDetails
 
 =head1 DESCRIPTION
 

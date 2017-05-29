@@ -3,16 +3,23 @@
 <th> First Name </th>
 <th> Last Name </th>
 <th> Gender </th>
-<th> Date_of_Birth </th>
+<th> Date_Of_Birth </th>
 <th> Contact_Number </th>
 <th> Address </th>
 <th> Course </th>
 </tr>
-<tr>
+
 
 [% FOREACH student IN result %]
- <td> [% student %]</td>
-[% END %]
+<tr>
+<td> [% student.first_name %]</td>
+<td> [% student.last_name %]</td>
+<td> [% student.gender %]</td>
+<td> [% student.dob %]</td>
+<td> [% student.contact_num %]</td>
+<td> [% student.address %]</td>
+<td> [% student.course %]</td>
 </tr>
-</table>
+
+[% END %]
 
