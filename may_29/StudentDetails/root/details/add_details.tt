@@ -1,0 +1,15 @@
+<div align="center"><h1> Student Details </h1></div><br>
+
+<form method="POST" action="add_data">
+First Name     : <input type="name" name="first_name"/><br><br>
+Last Name      : <input type="name" name="last_name"/><br><br>
+Gender         : <input type="radio" name="gender" value="male"> Male 
+                 <input type="radio" name="gender" value="female"> Female <br><br>
+       
+Date Of Birth  : <input type="date" name="dob"/> <br><br>
+Contact Number : <input type="text" name="num" /> <br><br>
+Address        : <input type="name" name="address"/><br><br>
+Course         : <input type="name" name="course"/><br><br>
+<input type="submit" name="save" value="Save"/>
+<input type="submit" name="cancel" value="Cancel"/><br><br>
+</form>

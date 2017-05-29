@@ -1,0 +1,25 @@
+
+1: ... nage_data"> < input type = "submit" name =
+                                  -------- ^     
+found bareword where operator expected (previous token underlined)
+
+2: "add" value = "ADD STUDENT" / > <br> < input type = "submit" name =
+   ----- ^                                                            
+found bareword where operator expected (previous token underlined)
+
+2: "add" value = "ADD STUDENT" / > <br> < input type = "submit" name =
+                               - ^                                    
+found > where term expected (previous token underlined)
+
+2: ... T" / > <br> < input type = "submit" name =
+                                  -------- ^     
+found bareword where operator expected (previous token underlined)
+
+3: "show" value =
+   ------ ^      
+found bareword where operator expected (previous token underlined)
+
+4: "SHOW STUDENT" / > <br> < /form>
+                  - ^              
+found > where term expected (previous token underlined)
+9:	hit EOF seeking end of quote/pattern starting at line 4 ending in /
