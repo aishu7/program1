@@ -28,5 +28,6 @@
 </tr>
 
 [% END %]
+</table>
 </body>
 </html>

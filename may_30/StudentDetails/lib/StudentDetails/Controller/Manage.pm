@@ -21,15 +21,19 @@ Catalyst Controller.
 =cut
 
 =item index
+
 Params : NONE
+
 Returns: NONE
-Desc   : index helps store the index page and pass it between view and controller during a request. 
+
+Desc   : index helps store the index page and pass it between view and controller during a request
+
 =cut
 
 sub index : Path('/start') : Args(0) {
 
     my ( $self, $c ) = @_;
-    if ( $c->req->method('GET') ) {
+    if ( $c->req->method() eq "GET" ) {
 
         $c->stash( template     => 'index.tt' );
         $c->stash( button_click => 'nothing' );
@@ -37,14 +41,18 @@ sub index : Path('/start') : Args(0) {
 }
 
 =item manage_data
+
 Params : NONE
+
 Returns : NONE
+
 Desc : manage_data stores the add_details and display_form page and pass it between view and controller corresponding to the button action
+
 =cut
 
 sub manage_data : Path('/manage_datas') {
     my ( $self, $c ) = @_;
-    if ( $c->req->method('POST') && $c->req->param('add') ) {
+    if ( $c->req->method() eq "POST" && $c->req->param('add') ) {
         $c->stash( template => 'details/add_details.tt' );
     }
 
@@ -54,9 +62,13 @@ sub manage_data : Path('/manage_datas') {
 }
 
 =item add_data
+
 Params : NONE
+
 Returns : NONE
+
 Desc : add_data stores form details which is entered by user and store into Student database
+
 =cut
 
 sub add_data : Path('/add_datas') {
@@ -73,7 +85,7 @@ sub add_data : Path('/add_datas') {
 
     #creation of result set for the student database
     my $student_result_set = $c->model('StudentDB::Student');
-    if ( $c->req->method('POST') && $c->req->param('save') ) {
+    if ( $c->req->method() eq "POST" && $c->req->param('save') ) {
 
         #adding info into student database
         my $result = $student_result_set->create(
@@ -91,7 +103,7 @@ sub add_data : Path('/add_datas') {
         $c->stash( template     => 'index.tt' );
         $c->stash( button_click => 'save' );
     }
-    elsif ( $c->req->method('POST') && $c->req->param('cancel') ) {
+    elsif ( $c->req->method() eq "POST" && $c->req->param('cancel') ) {
         $c->stash( template     => 'index.tt' );
         $c->stash( button_click => 'cancel' );
         $c->log->debug("Error. Your Data is not Saved");
@@ -99,9 +111,13 @@ sub add_data : Path('/add_datas') {
 }
 
 =item display_data
+
 Params : NULL
+
 Returns: NULL	
+
 Desc : display_data is to get values from user and search into student database and result value of search is passed into search_result page 
+
 =cut
 
 sub display_data : Path('/display_datas') {
