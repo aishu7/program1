@@ -4,9 +4,9 @@
 
 <form method="POST" action="add_datas">
 
-    First Name : <input type="text" pattern="[A-Za-z]{1,10}" title="Please Enter only alphabets for First Name" placeholder="Enter First Name" name="first_name" required/><br><br> 
+    First Name : <input type="text" pattern="[A-Za-z]{1,30}" title="Please Enter only alphabets for First Name" placeholder="Enter First Name" name="first_name" required/><br><br> 
 
-    Last Name  : <input type="text" pattern="[A-za-z]{1,10}" title="Please Enter only alphabets for Last Name" placeholder="Enter Last Name" name="last_name" required/><br><br> 
+    Last Name  : <input type="text" pattern="[A-za-z]{1,30}" title="Please Enter only alphabets for Last Name" placeholder="Enter Last Name" name="last_name" required/><br><br> 
 
     Gender : <input type="radio" name="gender" value="male"> Male
              <input type="radio" name="gender" value="female"> Female <br><br> 
