@@ -104,7 +104,7 @@ sub add_data : Path('/add_datas') {
         $c->stash( button_click => 'save' );
     }
 
-   elsif ( $c->req->method() eq "POST" && $c->req->param('cancel') ) {
+    elsif ( $c->req->method() eq "POST" && $c->req->param('cancel') ) {
         $c->stash( template     => 'index.tt' );
         $c->stash( button_click => 'cancel' );
         $c->log->debug("Error. Your Data is not Saved");
@@ -149,10 +149,10 @@ sub display_data : Path('/display_datas') {
         result   => \@search_result
     );
 }
-sub redirect_home_page : Path('/redirect_home'){
-my ($self,$c)=@_;
-$c->stash(
-template =>'index.tt');
+
+sub redirect_home_page : Path('/redirect_home') {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'index.tt' );
 }
 
 =encoding utf8
