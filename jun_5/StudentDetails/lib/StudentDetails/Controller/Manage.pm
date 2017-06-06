@@ -32,16 +32,18 @@ Desc   : index helps store the index page and pass it between view and controlle
 
 sub index : Local {
 
-    my ( $self, $c ) = @_;
+    my ( $self, $c, $save_or_cancel ) = @_;
 
-    # if ( $c->req->method() eq "GET" ) {
+    $c->stash( template => 'index.tt' );
 
-    $c->stash( template     => 'index.tt' );
-    $c->stash( button_click => 'nothing' );
+    if ( $save_or_cancel == 1 ) {
+        $c->stash( button_click => 'save' );
+    }
+    elsif ( $save_or_cancel == 2 ) {
+        $c->stash( button_click => 'cancel' );
+    }
 
 }
-
-#}
 
 =item manage_data
 
@@ -77,6 +79,7 @@ Desc : add_data stores form details which is entered by user and store into Stud
 
 sub add_data : Local {
     my ( $self, $c ) = @_;
+    my $save_or_cancel;
 
     #getting all information from the form
     my $first       = $c->req->param('first_name');
@@ -105,13 +108,13 @@ sub add_data : Local {
         );
 
         $c->log->debug("Student Data Successfully saved");
-        $c->visit('index');
+        $save_or_cancel = 1;
+        $c->visit( 'index', [$save_or_cancel] );
     }
 
     elsif ( $c->req->method() eq "POST" && $c->req->param('cancel') ) {
-
-        $c->visit('index');
-
+        $save_or_cancel = 2;
+        $c->visit( 'index', [$save_or_cancel] );
         $c->log->debug("Error. Your Data is not Saved");
     }
 }
